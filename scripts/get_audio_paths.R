@@ -1,16 +1,17 @@
-## Packages
+## Import R packages ##########################################################
 library(tidyverse)
 
-## Config
+## Set working directory for R Studio #########################################
 wd <- getwd() %>% str_replace("/scripts$", "")
 setwd(wd)
 getwd()
 rm(wd)
 
-## Import data
-tsv_base_path <- "./data/unprocessed/cv-corpus-9.0-2022-04-27/fi"
+## cv_corpus paths ############################################################
+cv_corpus_path <- "./data/unprocessed/cv-corpus-9.0-2022-04-27/fi"
 
-tb <- read_tsv(paste(tsv_base_path, "validated.tsv", sep = "/"))
+## Read in tsv file as tibble #################################################
+tb <- read_tsv(paste(cv_corpus_path, "validated.tsv", sep = "/"))
 
 ## List of clips by gender
 ## https://www.r-bloggers.com/2017/08/finding-distinct-rows-of-a-tibble/
@@ -38,3 +39,4 @@ na <- tb %>%
 sum(count(other), count(female), count(male), count(na)) == count(tb)
 
 ## TBA -> what type of file to export to use with Praat?
+## Answer: see copy_and_sort_audio_by_gender.R script in this same directory
