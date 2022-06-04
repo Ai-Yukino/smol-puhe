@@ -8,7 +8,10 @@ getwd()
 rm(wd)
 
 ## Import data
-tb <- read_tsv("../smol-puhe/data/cv-corpus-9.0-2022-04-27/fi/validated.tsv")
+tsv_base_path <- "./data/unprocessed/cv-corpus-9.0-2022-04-27/fi"
+
+tb <- read_tsv(paste(tsv_base_path, "validated.tsv", sep = "/"))
+
 
 ## Unique values
 spec(tb)
