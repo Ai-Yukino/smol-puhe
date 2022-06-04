@@ -1,3 +1,6 @@
+# This script extracts the audio clips from `validated.tsv` and sorts them
+# into separate folder by gender value (i.e. NA, "other", "female", "male")
+
 ## Import R packages ##########################################################
 library(tidyverse)
 
