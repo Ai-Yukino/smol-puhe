@@ -1,3 +1,6 @@
+# This script extracts the file path of all the audio  clips `validated.tsv` 
+# per each gender value (i.e. NA, "other", "female", "male")
+
 ## Import R packages ##########################################################
 library(tidyverse)
 
