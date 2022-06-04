@@ -1,3 +1,7 @@
+# This script reads in`validated.tsv`
+# See the `README.md` in https://github.com/common-voice/cv-dataset
+# for more details about `validated.tsv`
+
 ## Import R packages ##########################################################
 library(tidyverse)
 
