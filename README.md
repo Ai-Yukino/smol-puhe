@@ -2,7 +2,7 @@
 
 - Building a model which predicts the gender of a spoken vowel based on F0, F1, F2, and F3 measurements from the [Common Voice Corpus 9.0 - Finnish dataset](https://commonvoice.mozilla.org/en/datasets)
 
-- Redo of [puhe](https://github.com/Ai-Yukino/puhe) repo without audio files and with `.gitignore` which ignores any additional audio files
+- Redo of [puhe](https://github.com/Ai-Yukino/puhe) repo without audio files and with `.gitignore` which ignores any additional `.mp3` and `.wav` files you add to your locally cloned repo
 
 ---
 
