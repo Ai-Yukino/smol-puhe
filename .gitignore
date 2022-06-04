@@ -1,0 +1,10 @@
+# VS Code env
+.vscode/
+
+# R env
+.RData
+.Rhistory
+
+# Ignore audio files
+*.mp3
+*.wav
