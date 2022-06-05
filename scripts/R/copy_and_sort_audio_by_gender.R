@@ -5,16 +5,20 @@
 library(tidyverse)
 
 ## Set working directory for R Studio ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-wd <- getwd() %>% str_replace("/scripts$", "")
+## We want it to be the root of this repo, i.e. "/smol-puhe"
+
+wd <- getwd() %>% str_replace("/scripts/R$", "")
 setwd(wd)
 getwd()
 rm(wd)
 
 ## cv_corpus paths ############################################################
+
 cv_corpus_path <- "./data/unprocessed/cv-corpus-9.0-2022-04-27/fi"
 cv_corpus_clips_path <- "./data/unprocessed/cv-corpus-9.0-2022-04-27/fi/clips"
 
 ## Make output paths ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 other_output_path <- "./data/unprocessed/other_audio"
 dir.create(other_output_path)
 

@@ -4,8 +4,10 @@
 ## Import R packages ##########################################################
 library(tidyverse)
 
-## Set working directory for R Studio #########################################
-wd <- getwd() %>% str_replace("/scripts$", "")
+## Set working directory for R Studio ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## We want it to be the root of this repo, i.e. "/smol-puhe"
+
+wd <- getwd() %>% str_replace("/scripts/R$", "")
 setwd(wd)
 getwd()
 rm(wd)
