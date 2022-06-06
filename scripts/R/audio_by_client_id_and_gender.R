@@ -32,7 +32,7 @@ female_client_ids <- tb %>%
 
 something <- tb %>%
   select(client_id, gender) %>%
-  filter(client_id == female_client_ids[1,], gender == "female")
+  filter(client_id == unlist(female_client_ids[1,]), gender == "female")
 
 something
 
