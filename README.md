@@ -1,16 +1,25 @@
 # `REAMDE.md` for [smol-puhe](https://github.com/Ai-Yukino/smol-puhe)
 
-- Building a model which predicts the gender of a spoken vowel based on F0, F1, F2, and F3 measurements from the [Common Voice Corpus 9.0 - Finnish dataset](https://commonvoice.mozilla.org/en/datasets)
-
+- Extract estimates for the first three formants `F1`, `F2`, and `F3` and the fundamental frequency `F0` from audio clips listed in `invalidated.tsv` from the [Common Voice Corpus 9.0 - Finnish dataset](https://commonvoice.mozilla.org/en/datasets) using [Praat](https://www.fon.hum.uva.nl/praat/)
+- Build a model which predicts the perceived gender of a speaker based on a relationship between the formants `F1`, `F2`, and `F3` and the fundamental frequency `F0`
 - Redo of [puhe](https://github.com/Ai-Yukino/puhe) repo without audio files and with `.gitignore` which ignores any additional `.mp3` and `.wav` files you add to your locally cloned repo
 
 ---
 
-## 🔗 links
+## 🔗 links 🔗
 
-[📝 Docs for Common Voice Dataset](https://github.com/common-voice/cv-dataset#readme)
+- [📝 Docs for Common Voice Dataset](https://github.com/common-voice/cv-dataset#readme)
 
-## 📦 Versions
+### 🔗🔗 Good introduction to formants
+
+- [🎥 Speech Acoustics 4 - Source-filter model | Listen Lab](https://www.youtube.com/watch?v=wUE6Q8l17qI) (9 minutes)
+  - Good starting place to build intuition about what formants are
+- [🎥 Speech Acoustics 5 - vowel formants | Listen Lab](https://www.youtube.com/watch?v=glnUFa2fLyE) (10 minutes)
+  - More details about formants
+- [🎥 Praat 3 - Formant settings | Listen Lab](https://www.youtube.com/watch?v=fsGIecMgTzQ) (7 minutes)
+  - Motivation for why we need to manually tweak Praat parameters for each individual speaker
+
+## 📦 Versions 📦
 
 ### Ai's computer
 
