@@ -5,6 +5,9 @@
 .RData
 .Rhistory
 
-# Ignore audio files
+# Audio files
 *.mp3
 *.wav
+
+# LibreOffice
+.~lock.*
