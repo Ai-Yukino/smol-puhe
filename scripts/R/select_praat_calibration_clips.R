@@ -37,8 +37,11 @@ set.seed(-2022)
 
 for (i in 1:num_female_speakers){
   speaker_clips <- tb %>%
-    select(path, client_id) %>%
-    filter(client_id == unlist(female_client_ids[i,])) %>%
+    select(path, client_id, gender) %>%
+    filter(client_id == unlist(
+      female_client_ids[i,]),
+      gender == "female"
+      ) %>%
     select(path)
   
   print(i)
@@ -62,8 +65,11 @@ set.seed(-2022)
 
 for (i in 1:num_male_speakers){
   speaker_clips <- tb %>%
-    select(path, client_id) %>%
-    filter(client_id == unlist(male_client_ids[i,])) %>%
+    select(path, client_id, gender) %>%
+    filter(client_id == unlist(
+      male_client_ids[i,]),
+      gender == "male"
+    ) %>%
     select(path)
   
   print(i)
