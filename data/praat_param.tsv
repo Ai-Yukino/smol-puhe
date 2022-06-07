@@ -15,19 +15,19 @@ speaker_number	speaker_gender	param_calibration_clip	pitch_min	pitch_max	formant
 5	male	common_voice_fi_26191587.mp3	50	175	4000	4	0.06	NA	NA	NA	NA	NA	NA	NA
 6	male	common_voice_fi_23715955.mp3	75	200	4800	4	0.045	NA	vocal fry	3.136612	3.410676	NA	NA	NA
 7	male	common_voice_fi_25265782.mp3	50	200	4600	4	0.035	NA	vocal fry	2.244646	2.559152	NA	NA	NA
-8	male	common_voice_fi_25727638.mp3												
-9	male	common_voice_fi_23841392.mp3												
-10	male	common_voice_fi_24933601.mp3												
-11	male	common_voice_fi_25183047.mp3												
-12	male	common_voice_fi_23735898.mp3												
-13	male	common_voice_fi_25657754.mp3												
-14	male	common_voice_fi_25059097.mp3												
-15	male	common_voice_fi_24999517.mp3												
-16	male	common_voice_fi_25008790.mp3												
-17	male	common_voice_fi_23018390.mp3												
-18	male	common_voice_fi_24960387.mp3												
-19	male	common_voice_fi_23796488.mp3												
-20	male	common_voice_fi_25261836.mp3												
+8	male	common_voice_fi_25727638.mp3	35	150	4000	4	0.04	NA	NA	NA	NA	NA	NA	NA
+9	male	common_voice_fi_23841392.mp3	75	175	4100	4	0.075	NA	NA	NA	NA	NA	NA	NA
+10	male	common_voice_fi_24933601.mp3	75	200	4100	4	0.06	NA	NA	NA	NA	NA	NA	NA
+11	male	common_voice_fi_25183047.mp3	75	250	4100	4	0.06	NA	NA	NA	NA	NA	NA	NA
+12	male	common_voice_fi_23735898.mp3	50	175	3600	4	0.04	NA	NA	NA	NA	NA	NA	NA
+13	male	common_voice_fi_25657754.mp3	50	200	4000	4	0.05	NA	NA	NA	NA	NA	NA	NA
+14	male	common_voice_fi_25059097.mp3	75	225	4000	4	0.04	NA	NA	NA	NA	NA	NA	NA
+15	male	common_voice_fi_24999517.mp3	75	450	4000	4	0.06	NA	NA	NA	NA	NA	NA	NA
+16	male	common_voice_fi_25008790.mp3	75	200	4000	4	0.05	NA	NA	NA	NA	NA	NA	NA
+17	male	common_voice_fi_23018390.mp3	50	150	4200	4	0.08	NA	NA	NA	NA	NA	NA	NA
+18	male	common_voice_fi_24960387.mp3	50	200	4000	4	0.05	NA	NA	NA	NA	NA	NA	NA
+19	male	common_voice_fi_23796488.mp3	50	175	4000	4	0.04	NA	NA	NA	NA	NA	NA	NA
+20	male	common_voice_fi_25261836.mp3	50	175	4200	4	0.03	NA	NA	NA	NA	NA	NA	NA
 21	male	common_voice_fi_23967539.mp3												
 22	male	common_voice_fi_25017964.mp3												
 23	male	common_voice_fi_25022267.mp3												
