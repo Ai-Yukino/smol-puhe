@@ -72,7 +72,7 @@ file.copy(female_clips, female_output_path)
 
 ## Copy male clips ############################################################
 
-### Character vector of paths to female audio clips
+### Character vector of paths to male audio clips
 male_clips <- tb %>%
   select(path, gender) %>%
   filter(gender == "male") %>%
