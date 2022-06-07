@@ -2,7 +2,7 @@ speaker_number	speaker_gender	param_calibration_clip	pitch_min	pitch_max	formant
 1	female	common_voice_fi_25976999.mp3	90	225	4600	4	0.04	NA	trill	1.021193	1.256446	vocal fry	2.064069	2.369656
 2	female	common_voice_fi_23651907.mp3	80	300	4600	4	0.075	NA	vocal fry	3.163311	3.163311	mouse click	4.435677	4.743852
 3	female	common_voice_fi_24967342.mp3	75	325	5300	4	0.1	static distortion	NA	NA	NA	NA	NA	NA
-4	female	common_voice_fi_25132840.mp3												
+4	female	common_voice_fi_25132840.mp3	140	450	4800	4	0.04	clean vowels	vocal fry	1.070982	1.271053	NA	NA	NA
 5	female	common_voice_fi_25071352.mp3												
 6	female	common_voice_fi_25205941.mp3												
 7	female	common_voice_fi_25142829.mp3												
