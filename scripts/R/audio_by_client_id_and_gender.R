@@ -22,84 +22,46 @@ cv_corpus_clips_path <- "./data/unprocessed/cv-corpus-9.0-2022-04-27/fi/clips"
 
 tb <- read_tsv(paste(cv_corpus_path, "validated.tsv", sep = "/"))
 
-## client_id's for gender == "female" 
-## and gender == "male" #######################################################
+## Female speakers ############################################################
 
+### Character vector of female speakers' client id's
 female_client_ids <- tb %>%
   select(client_id, gender) %>%
   filter(gender == "female") %>%
   distinct(client_id)
 
-something <- tb %>%
-  select(client_id, gender) %>%
-  filter(client_id == unlist(female_client_ids[1,]), gender == "female")
+num_female_speakers <- nrow(female_client_ids)
 
-something
+### Create output directories for each female speakers
+female_speaker_base_path <- 
+  "./data/unprocessed/female_audio/female_speaker_"
+female_speaker_paths <- 
+  paste0(female_speaker_base_path, 1:num_female_speakers)
 
-##################################################################################################
+for (i in 1:num_female_speakers){
+  dir.create(female_speaker_paths[i], recursive = TRUE)
+}
 
-# ## Make output paths ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# 
-# other_output_path <- "./data/unprocessed/other_audio"
-# dir.create(other_output_path)
-# 
-# NA_output_path <- "./data/unprocessed/NA_audio"
-# dir.create(NA_output_path)
-# 
-# female_output_path <- "./data/unprocessed/female_audio"
-# dir.create(female_output_path)
-# 
-# male_output_path <- "./data/unprocessed/male_audio"
-# dir.create(male_output_path)
-# 
-# ## Read in tsv file as tibble #################################################
-# tb <- read_tsv(paste(cv_corpus_path, "validated.tsv", sep = "/"))
-# 
-# ## Copy other clips ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# 
-# ### Character vector of paths to other audio clips
-# other_clips <- tb %>%
-#   select(path, gender) %>%
-#   filter(gender == "other") %>%
-#   select(path) %>%
-#   mutate(path = paste(cv_corpus_clips_path, path, sep = "/")) %>%
-#   deframe()
-# 
-# file.copy(other_clips, other_output_path)
-# 
-# ## Copy NA clips ##############################################################
-# 
-# ### Character vector of paths to NA audio clips
-# NA_clips <- tb %>%
-#   select(path, gender) %>%
-#   filter(is.na(gender)) %>%
-#   select(path) %>%
-#   mutate(path = paste(cv_corpus_clips_path, path, sep = "/")) %>%
-#   deframe()
-# 
-# file.copy(NA_clips, NA_output_path)
-# 
-# ## Copy female clips ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# 
-# ### Character vector of paths to female audio clips
-# female_clips <- tb %>%
-#   select(path, gender) %>%
-#   filter(gender == "female") %>%
-#   select(path) %>%
-#   mutate(path = paste(cv_corpus_clips_path, path, sep = "/")) %>%
-#   deframe()
-# 
-# file.copy(female_clips, female_output_path)
-# 
-# ## Copy male clips ############################################################
-# 
-# ### Character vector of paths to female audio clips
-# male_clips <- tb %>%
-#   select(path, gender) %>%
-#   filter(gender == "male") %>%
-#   select(path) %>%
-#   mutate(path = paste(cv_corpus_clips_path, path, sep = "/")) %>%
-#   deframe()
-# 
-# file.copy(male_clips, male_output_path)
-# 
+### Get the audio clip paths for each female speaker
+### and copy them to the appropriate output directory
+for (i in 1:num_female_speakers){
+  speaker_clips <- tb %>%
+    select(client_id, gender, path) %>%
+    filter(client_id %in% female_client_ids[i,], gender == "female") %>%
+    select(path) %>%
+    as_vector() %>%
+    paste(cv_corpus_clips_path, ., sep="/")
+
+  file.copy(speaker_clips, female_speaker_paths[i])
+}
+
+
+
+
+
+
+
+
+
+
+
