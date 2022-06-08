@@ -8,7 +8,7 @@ library(tidyverse)
 ## Set working directory for R Studio ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## We want it to be the root of this repo, i.e. "/smol-puhe"
 
-wd <- getwd() %>% str_replace("/scripts/R$", "")
+wd <- getwd() %>% str_replace("/scripts/R/praat_processing$", "")
 setwd(wd)
 getwd()
 rm(wd)
