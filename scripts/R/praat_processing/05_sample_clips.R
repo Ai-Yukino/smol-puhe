@@ -22,13 +22,10 @@ cv_corpus_clips_path <- "./data/unprocessed/cv-corpus-9.0-2022-04-27/fi/clips"
 
 tb <- read_tsv(paste(cv_corpus_path, "validated.tsv", sep = "/"))
 
-## Number of samples clip(s) ##################################################
+## Sampling parameters ########################################################
 
-female_speakers_sample_size <- 5
-male_speakers_sample_size <- 5
-
-female_clips_sample_size <- 1
-male_clips_sample_size <- 1
+speakers_sample_size <- 5
+clips_sample_size <- 1
 
 ## Female speakers ############################################################
 
@@ -40,11 +37,10 @@ female_client_ids <- tb %>%
 
 num_female_speakers <- nrow(female_client_ids)
 
-### Sample clips from female_speakers_sample_size female speakers
+### Sample clips
 set.seed(-2022)
 
-female_speakers_sample <- sample(1:num_female_speakers,
-                                 female_speakers_sample_size)
+female_speakers_sample <- sample(1:num_female_speakers, speakers_sample_size)
 
 for (i in female_speakers_sample){
   speaker_clips <- tb %>%
@@ -57,7 +53,7 @@ for (i in female_speakers_sample){
   
   print(i)
   print(deframe(
-    sample_n(speaker_clips, 1)
+    sample_n(speaker_clips, clips_sample_size)
   ))
 }
 
@@ -71,13 +67,10 @@ male_client_ids <- tb %>%
 
 num_male_speakers <- nrow(male_client_ids)
 
-### Sample clips from male_speakers_sample_siz male speakers
+### Sample clips
 set.seed(-2022)
 
-male_speakers_sample <- sample(1:num_male_speakers,
-                                 male_speakers_sample_size)
-
-male_speakers_sample
+male_speakers_sample <- sample(1:num_male_speakers, speakers_sample_size)
 
 for (i in male_speakers_sample){
   speaker_clips <- tb %>%
@@ -90,22 +83,6 @@ for (i in male_speakers_sample){
   
   print(i)
   print(deframe(
-    sample_n(speaker_clips, 1)
+    sample_n(speaker_clips, clips_sample_size)
   ))
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
