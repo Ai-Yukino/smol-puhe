@@ -42,3 +42,23 @@ tb %>%
   filter(gender == "male") %>%
   distinct(client_id) %>%
   count
+
+### Interesting values ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+### Character vector of male speakers' client id's
+male_client_ids <- tb %>%
+  select(client_id, gender) %>%
+  filter(gender == "male") %>%
+  distinct(client_id)
+
+### Male speaker 29
+tb %>%
+  select(client_id, gender, age, path) %>%
+  filter(client_id == unlist(
+    male_client_ids[29,])
+    ) %>%
+  distinct(gender, age)
+
+
+
+
