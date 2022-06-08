@@ -78,9 +78,3 @@ for (i in 1:num_male_speakers){
   ))
 }
 
-
-
-
-
-
-
