@@ -1,4 +1,4 @@
-# Test example from ##########################################################
+ # Test example from ##########################################################
 # "Timeseries average based on a defined time interval (bin)"
 # https://stackoverflow.com/a/48837132
 # Thanks Andrew ^^
