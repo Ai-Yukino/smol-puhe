@@ -1,7 +1,7 @@
 # `REAMDE.md` for [smol-puhe](https://github.com/Ai-Yukino/smol-puhe)
 
-- Extract estimates for the first three formants `F1`, `F2`, and `F3` and the fundamental frequency `F0` from audio clips listed in `validated.tsv` from the [Common Voice Corpus 9.0 - Finnish dataset](https://commonvoice.mozilla.org/en/datasets) using [Praat](https://www.fon.hum.uva.nl/praat/)
-- Build a model which predicts the perceived gender of a speaker based on a relationship between the formants `F1`, `F2`, and `F3` and the fundamental frequency `F0`
+- Extract estimates for the first four formants `F1`, `F2`, `F3`, and `F4`, and the fundamental frequency `F0` from audio clips listed in `validated.tsv` from the [Common Voice Corpus 9.0 - Finnish dataset](https://commonvoice.mozilla.org/en/datasets) using [Praat](https://www.fon.hum.uva.nl/praat/)
+- Build a model which predicts the perceived gender of a speaker based on a relationship between the formants `F1`, `F2`, `F3`, `F4`, and the fundamental frequency `F0`
 - Redo of [puhe](https://github.com/Ai-Yukino/puhe) repo without audio files and with `.gitignore` which ignores any additional `.mp3` and `.wav` files you add to your locally cloned repo
 
 ---
