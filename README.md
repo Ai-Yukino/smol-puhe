@@ -28,3 +28,6 @@
 - RStudio 2022.02.3+492 "Prairie Trillium" Release (1db809b8323ba0a87c148d16eb84efe39a8e7785, 2022-05-20) for Windows
   Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) QtWebEngine/5.12.8 Chrome/69.0.3497.128 Safari/537.36
 - Praat version 6.2.14 (May 24, 2022)
+  - [FastTrack plugin](https://github.com/santiagobarreda/FastTrack)
+    - Repo cloned on June 8, 2022
+    - Last commit on that day is probably [this](https://github.com/santiagobarreda/FastTrack/commit/1fa7a8c1263070372aff30fde02b5ed23f0c2839)
