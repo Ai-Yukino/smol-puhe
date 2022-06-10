@@ -55,9 +55,11 @@ male_client_ids <- tb %>%
 tb %>%
   select(client_id, gender, age, path) %>%
   filter(client_id == unlist(
-    male_client_ids[29,])
+    male_client_ids[29,]),
+    path %in% c("common_voice_fi_25812281.mp3",
+                "common_voice_fi_25812261.mp3") 
     ) %>%
-  distinct(gender, age)
+  distinct(gender, age, path)
 
 
 
