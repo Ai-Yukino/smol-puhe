@@ -1,0 +1,43 @@
+# Import library 
+library(tidyverse)
+
+
+# Load data
+data <- read.csv("/Users/mariacordero/Downloads/formants.csv")
+
+# Explore data
+head(data)
+
+# Selecting specific columns 
+data <- data[, c('f0', 'f1', 'f2', 'gender')]
+head(data)
+
+# Splitting data
+
+library(caTools)
+
+sample.split(data$gender,SplitRatio = 0.65)->split_values
+subset(data,split_values==T)->train_set
+subset(data,split_values==F)->test_set
+
+# Loading RPART to build classification model
+library(rpart)
+
+rpart(gender ~ ., data = train_set)->mod_class
+predict(mod_class, test_set, type = "matrix" )->result_class
+table(test_set$gender, result_class)
+
+library(ggplot2)
+
+data <- read.csv("/Users/mariacordero/Downloads/formants.csv")
+
+plot(data$gender, data$f0,
+     main = "Formants by Speaker's Gender",
+     xlab = "Speaker's Gender",
+     ylab = "Formants",
+     type = "l",
+     ylim = c(50, 3000))
+lines(data$gender, data$f1,
+      lty = "dashed")
+lines(data$gender, data$f2,
+      lty = "dotted")
