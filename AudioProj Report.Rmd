@@ -1,0 +1,310 @@
+---
+title: "AudioProj Report"
+author: "TTS R Group"
+date: '2022-06-07'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# The Relationship between Speech Acoustics and Gender
+
+**Our Hypothesis**: knlnnlnlknkl
+
+## R Packages/ Libraries
+
+```{r}
+install.packages("caret")
+library(caret)
+library(tidyverse)
+library(factoextra)
+library(cluster)
+library(ggplot2)
+library(e1071)
+library(tidyr)
+```
+
+## Set working directory for R Studio
+
+```{r}
+wd <- getwd() %>% str_replace("/scripts/R/praat_processing$", "")
+setwd(wd)
+getwd()
+rm(wd)
+
+data <- read_csv("./data/filtered_data.csv")
+spec(data)
+```
+
+## Supervised Model: Caret Prediction
+
+```{r}
+colnames(data) <- c("time","f1",	"b1",	"f2",	"b2",	"f3",	"b3",	"f4",	"b4",	"f1p",	"f2p",	"f3p",	"f4p",	"f0",	"intensity",	"harmonicity",	"age","gender"
+)
+
+#create a list of 80% of the row for training
+
+validation_index <- createDataPartition(data$gender, p=0.80, list=FALSE)
+
+# select 20% of the data for validation
+validation <- data[-validation_index,]
+
+#use 80% of data to training and testing the models
+data<- data[validation_index,]
+```
+
+### Supervised Learning: Classification
+
+```{r}
+# Selecting specific columns 
+data <- data[, c('f0', 'f1', 'f2', 'gender')]
+head(data)
+
+# Splitting data
+
+install.packages('caTools')
+library(caTools)
+
+sample.split(data$gender,SplitRatio = 0.65)->split_values
+subset(data,split_values==T)->train_set
+subset(data,split_values==F)->test_set
+
+# Loading RPART to build classification model
+library(rpart)
+
+rpart(gender ~ ., data = train_set)->mod_class
+predict(mod_class, test_set, type = "matrix" )->result_class
+table(test_set$gender, result_class)
+
+library(ggplot2)
+
+data <- read_csv("./data/filtered_data.csv")
+
+plot(data$gender, data$f0,
+     main = "Formants by Speaker's Gender",
+     xlab = "Speaker's Gender",
+     ylab = "Formants",
+     type = "l",
+     ylim = c(50, 3000))
+lines(data$gender, data$f1,
+      lty = "dashed")
+lines(data$gender, data$f2,
+      lty = "dotted")
+```
+
+## Unsupervised Learning: Principal Components Analysis
+
+```{r}
+data <- data[, c('f0', 'f1', 'f2', 'gender')]
+
+#Calculate the Principal Components
+results <- prcomp(data, scale = TRUE)
+
+#reverse the signs
+results$rotation <- -1*results$rotation
+
+#display principal components
+results$rotation
+
+#reverse the signs of the scores
+results$x <- -1*results$x
+
+#display the first six scores
+head(results$x)
+
+biplot(results, scale = 0)
+
+#calculate total variance explained by each principal component
+results$sdev^2 / sum(results$sdev^2)
+
+#calculate total variance explained by each principal component
+var_explained = results$sdev^2 / sum(results$sdev^2)
+
+#create scree plot
+qplot(c(1:4), var_explained) + 
+  geom_line() + 
+  xlab("Principal Component") + 
+  ylab("Variance Explained") +
+  ggtitle("Scree Plot") +
+  ylim(0, 1)
+```
+
+## Kmeans()
+
+```{r}
+data$difference = data$f1 - data$f0
+data$quotient = data$f1/data$f0
+dataMod = subset(data, select = -c(b1,b2,b3,b4,f1p,f2p,f3p,f4p, intensity, harmonicity, ...1, time))
+
+model1 = lm(difference~gender, data = data)
+summary(model1)
+model2 = lm(quotient~gender, data = data)
+summary(model2)
+
+
+model3 = lm(difference~., data = subset(dataMod, select = -c(quotient, f0, f1)))
+summary(model3)
+model4 = lm(quotient~., data = subset(dataMod, select = -c(difference, f0, f1)))
+summary(model4)
+
+fviz_nbclust(dataMod, kmeans, method = "wss")
+gapStat = clusGap(dataMod, FUN = kmeans, K.max = 10, B = 50)
+fviz_gap_stat(gapStat)
+
+km1 = kmeans(dataMod, centers = 2)
+km2 = kmeans(dataMod, centers = 6)
+km3 = kmeans(dataMod, centers = 8)
+fviz_cluster(km1, dataMod)
+fviz_cluster(km2, dataMod)
+fviz_cluster(km3, dataMod)
+
+
+fviz_nbclust(subset(dataMod, select = c(f1, f2, gender)), kmeans, method = "wss")
+gapStat2 = clusGap(subset(dataMod, select = c(f1, f2, gender)), FUN = kmeans, K.max = 10, B = 50)
+fviz_gap_stat(gapStat2)
+
+km4 = kmeans(dataMod, centers = 2)
+km5 = kmeans(dataMod, centers = 4)
+km6 = kmeans(dataMod, centers = 5)
+fviz_cluster(km4, subset(dataMod, select = c(f1, f2, gender)))
+fviz_cluster(km5, subset(dataMod, select = c(f1, f2, gender)))
+fviz_cluster(km6, subset(dataMod, select = c(f1, f2, gender)))
+
+
+ggplot(dataMod, aes(x = f0, y = f1)) + geom_point(aes(color = gender, alpha = 0.01))
+
+
+fullMod = lm(gender~f0 + f1 + f2, dataMod)
+redMod = lm(gender~f0, dataMod)
+anova(redMod, fullMod)
+
+test = lm(gender~f0, dataMod)
+summary(test)
+
+test2 = lm(gender~f0 + f1, dataMod)
+summary(test2)
+
+test3 = lm(gender~f0 + f1 + f0*f1, dataMod)
+summary(test3)
+```
+
+## Logistic Regression
+
+```{r}
+## Logistic regression 
+## gender ~ f0
+
+ggplot(data, aes(x=f0, y=gender)) +
+  geom_point(alpha=.5, aes(color = cut(data$gender, c(-1, 0.5, 1)))) +
+  scale_color_manual(name = "Gender",
+                     values = c("(-1,0.5]" = "#ff0080",
+                                "(0.5,1]" = "#0000ff"),
+                     labels = c("Female", "Male")) +
+  stat_smooth(method="glm", se=FALSE,
+              method.args = list(family=binomial), col="#a349a4") +
+  labs(title = "Logistic regression",
+       subtitle = "gender ~ f0",
+       caption = "Data: smol-puhe/data/filtered_data.csv")
+
+# ggsave("logistic_gender_f0.png")
+
+model_f0 <- glm(gender~f0, data = data)
+summary(model_f0)
+
+## Logistic regression ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## gender ~ f0 / f1
+
+data$f0_over_f1 <- data$f0 / data$f1
+
+ggplot(data, aes(x=f0_over_f1, y=gender)) +
+  geom_point(alpha=.5, aes(color = cut(data$gender, c(-1, 0.5, 1)))) +
+  scale_color_manual(name = "Gender",
+                     values = c("(-1,0.5]" = "#ff0080",
+                                "(0.5,1]" = "#0000ff"),
+                     labels = c("Female", "Male")) +
+  stat_smooth(method="glm", se=FALSE,
+              method.args = list(family=binomial), col="#a349a4") +
+  labs(title = "Logistic regression",
+       subtitle = "gender ~ f0 / f1",
+       caption = "Data: smol-puhe/data/filtered_data.csv") + 
+  xlab("f0 / f1")
+
+# ggsave("logistic_gender_f0_over_f1.png")
+
+model_f0_over_f1 <- glm(gender~f0_over_f1, data = data)
+summary(model_f0_over_f1)
+
+## Logistic regression ########################################################
+## gender ~ f1 / f0
+
+data$f1_over_f0 = data$f1 / data$f0
+
+ggplot(data, aes(x=f1_over_f0, y=gender)) +
+  geom_point(alpha=.5, aes(color = cut(data$gender, c(-1, 0.5, 1)))) +
+  scale_color_manual(name = "Gender",
+                     values = c("(-1,0.5]" = "#ff0080",
+                                "(0.5,1]" = "#0000ff"),
+                     labels = c("Female", "Male")) +
+  stat_smooth(method="glm", se=FALSE,
+              method.args = list(family=binomial), 
+              col="#a349a4") + 
+  labs(title = "Logistic regression",
+       subtitle = "gender ~ f1 / f0",
+       caption = "Data: smol-puhe/data/filtered_data.csv") + 
+  xlab("f1 / f0")
+
+# ggsave("logistic_gender_f1_over_f0.png")
+
+model_f1_over_f0 <- glm(gender~f1_over_f0, data = data)
+summary(model_f1_over_f0)
+
+## Logistic regression ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## gender ~ f1 - f0
+
+data$f1_minus_f0 = data$f1 - data$f0
+
+ggplot(data, aes(x=f1_minus_f0, y=gender)) +
+  geom_point(alpha=.5, aes(color = cut(data$gender, c(-1, 0.5, 1)))) +
+  scale_color_manual(name = "Gender",
+                     values = c("(-1,0.5]" = "#ff0080",
+                                "(0.5,1]" = "#0000ff"),
+                     labels = c("Female", "Male")) +
+  stat_smooth(method="glm", se=FALSE,
+              method.args = list(family=binomial), 
+              col="#a349a4") + 
+  labs(title = "Logistic regression",
+       subtitle = "gender ~ f1 - f0",
+       caption = "Data: smol-puhe/data/filtered_data.csv") + 
+  xlab("f1 - f0")
+
+# ggsave("logistic_gender_f1_minus_f0.png")
+
+model_f1_minus_f0 <- glm(gender~f1_minus_f0, data = data)
+summary(model_f1_minus_f0)
+
+## Logistic regression ########################################################
+## gender ~ f0 + f1
+
+ggplot(data, aes(x=f0 + f1, y=gender)) +
+  geom_point(alpha=.5, aes(color = cut(data$gender, c(-1, 0.5, 1)))) +
+  scale_color_manual(name = "Gender",
+                     values = c("(-1,0.5]" = "#ff0080",
+                                "(0.5,1]" = "#0000ff"),
+                     labels = c("Female", "Male")) +
+  stat_smooth(method="glm", se=FALSE,
+              method.args = list(family=binomial), 
+              col="#a349a4") + 
+  labs(title = "Logistic regression",
+       subtitle = "gender ~ f1, f0",
+       caption = "Data: smol-puhe/data/filtered_data.csv") + 
+  xlab("f0, f1")
+
+# ggsave("logistic_gender_f1_minus_f0.png")
+
+model <- glm(gender~f0 + f1 + f0*f1, data = data, family="binomial")
+summary(model)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
