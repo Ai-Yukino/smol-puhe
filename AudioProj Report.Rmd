@@ -11,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # The Relationship between Speech Acoustics and Gender
 
-**Our Hypothesis**: Sounds where $f1 - f0$ or $f1 / f0$ are larger are more likely to come from female speakers.
+**Our Hypothesis**: Sounds where $f_1 - f_0$ or $f_1 / f_0$ are larger are more likely to come from female speakers.
 
 ## R Packages/ Libraries
 
