@@ -1,8 +1,15 @@
 ---
 title: "AudioProj Report"
-author: "TTS R Group"
+author:
+  - Maria Cordero
+  - Yoon Hwang
+  - Andrew Ramirez
+  - Cherylyn Smith
+  - Ai Yukino
 date: '2022-06-14'
 output: pdf_document
+header-includes:
+  - \usepackage{pmboxdraw}
 ---
 
 ```{r setup, include=FALSE}
@@ -71,7 +78,9 @@ x = trainData[ 1:5]
 y = factor(trainData[[9]])
 
 
-Sys.setlocale( locale = 'Chinese')
+# Sys.setlocale( locale = 'Chinese')
+Sys.setlocale('LC_ALL','C')
+
 #skimmed <- skim_to_wide(trainData)
 #skimmed[,]
 skim(df)
