@@ -6,7 +6,27 @@
 
 ---
 
-## 🔗 links 🔗
+## 💬 Voice sample clips 💬
+
+If you don't want to downlaod the full data set above, you can listen to and download the 10 sample clips in the following links:
+
+### Female speaker sample clips
+
+- [Female speaker 1 sample clip](https://whyp.it/t/female-speaker-1-sample-clip-aMBR5)
+- [Female speaker 2 sample clip](https://whyp.it/t/female-speaker-2-sample-clip-aO9WL)
+- [Female speaker 5 sample clip](https://whyp.it/t/female-speaker-5-sample-clip-dPJ0W)
+- [Female speaker 7 sample clip](https://whyp.it/t/female-speaker-7-sample-clip-aQLYL)
+- [Female speaker 9 sample clip](https://whyp.it/t/female-speaker-9-sample-clip-dRBZK)
+
+### Male speaker sample clips
+
+- [Male speaker 17 sample clip](https://whyp.it/t/male-speaker-17-sample-clip-eVZ4W)
+- [Male speaker 18 sample clip](https://whyp.it/t/male-speaker-18-sample-clip-bWB5v)
+- [Male speaker 23 sample clip](https://whyp.it/t/male-speaker-23-sample-clip-eXVgA)
+- [Male speaker 26 sample clip](https://whyp.it/t/male-speaker-26-sample-clip-bYXjn)
+- [Male speaker 29 sample clip](https://whyp.it/t/male-speaker-29-sample-clip-eZXkR)
+
+## 🔗 Other links 🔗
 
 - [📝 Docs for Common Voice Dataset](https://github.com/common-voice/cv-dataset#readme)
 
