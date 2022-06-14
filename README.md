@@ -8,7 +8,7 @@
 
 ## 💬 Voice sample clips 💬
 
-If you don't want to downlaod the full data set above, you can listen to and download the 10 sample clips in the following links:
+If you don't want to downlaod the full data set above, you can listen to and download the 10 sample clips we used in our analysis below:
 
 ### Female speaker sample clips
 
