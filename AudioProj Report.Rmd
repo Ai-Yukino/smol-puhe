@@ -15,8 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Packages/ Libraries
 
-```{r}
-install.packages("caret")
+```{r message=FALSE}
 library(caret)
 library(tidyverse)
 library(factoextra)
@@ -24,6 +23,8 @@ library(cluster)
 library(ggplot2)
 library(e1071)
 library(tidyr)
+library(skimr)
+library(readxl)
 ```
 
 ## Set working directory for R Studio
@@ -41,18 +42,105 @@ spec(data)
 ## Supervised Model: Caret Prediction
 
 ```{r}
-colnames(data) <- c("time","f1",	"b1",	"f2",	"b2",	"f3",	"b3",	"f4",	"b4",	"f1p",	"f2p",	"f3p",	"f4p",	"f0",	"intensity",	"harmonicity",	"age","gender"
-)
+data<- read_excel("./data/filtered_data.xls")
+dim(data)
 
-#create a list of 80% of the row for training
+df <- data[c("f1", "f2", "f3", "f4", "f0", "intensity", "harmonicity", "age","gender")]
+head(df)
 
-validation_index <- createDataPartition(data$gender, p=0.80, list=FALSE)
+# dimensions of data
+dim(df)
 
-# select 20% of the data for validation
-validation <- data[-validation_index,]
 
-#use 80% of data to training and testing the models
-data<- data[validation_index,]
+#create output as target class
+df$gender = as.factor(df$gender)
+
+# Step 1: Get row numbers for the training data
+trainRowNumbers <- createDataPartition(df$gender, p=0.8, list=FALSE)
+
+# Step 2: Create the training  data
+trainData <- df[trainRowNumbers,]
+
+# Step 3: Create the test data
+testData <- df[-trainRowNumbers,]
+
+# Store X and Y for later use.
+x = trainData[ 1:5]
+y = factor(trainData[[9]])
+
+
+Sys.setlocale( locale = 'Chinese')
+#skimmed <- skim_to_wide(trainData)
+#skimmed[,]
+skim(df)
+
+df %>% dplyr::group_by(gender) %>% skim()
+
+#create a list of 80% of rows for training
+validation_index <- createDataPartition(df$gender, p=0.80, list=FALSE)
+validation <- df[-validation_index,]
+df <- df[validation_index,]
+
+
+# dimensions of data
+dim(df)
+
+#summarize attribute distributions
+summary(df)
+
+#summarize the class distribution
+percentage <-prop.table(table(df$gender)) *100
+y = factor(trainData[[9]])
+cbind(freq=table(df$gender), percentage =percentage)
+
+#split input and output
+#x<-df[,1:5]
+#y<-as.factor(df[[9]])
+
+#boxplot for each attribute
+par(mfrow=c(1,5))
+  for(i in 1:5){
+    boxplot(x[,i], main=names(df)[i])
+  }
+
+
+# Run algorithms using 10-fold cross validation
+control <- trainControl(method="cv", number=10)
+metric <- "Accuracy"
+
+# a) linear algorithms
+set.seed(7)
+fit.lda <- train(gender~., data=df, method="lda", metric=metric, trControl=control)
+# b) nonlinear algorithms
+# CART
+set.seed(7)
+fit.cart <- train(gender~., data=df, method="rpart", metric=metric, trControl=control)
+# kNN
+set.seed(7)
+fit.knn <- train(gender~., data=df, method="knn", metric=metric, trControl=control)
+# c) advanced algorithms
+# SVM
+set.seed(7)
+fit.svm <- train(gender~., data=df, method="svmRadial", metric=metric, trControl=control)
+# Random Forest
+set.seed(7)
+fit.rf <- train(gender~., data=df, method="rf", metric=metric, trControl=control)
+
+#summarize accuracy of models
+results <- resamples(list(lda=fit.lda, cart=fit.cart, knn=fit.knn, svm=fit.svm, rf=fit.rf))
+summary(results)
+
+# compare accuracy of models
+dotplot(results)
+
+# best model is random forest
+print(fit.rf)
+
+#analyze results in confusion matrix
+
+# estimate skill of rf on the validation data
+predictions <- predict(fit.rf, validation)
+confusionMatrix(predictions, validation$gender)
 ```
 
 ### Supervised Learning: Classification
@@ -134,6 +222,8 @@ qplot(c(1:4), var_explained) +
 ## Kmeans()
 
 ```{r}
+data <- read_csv("./data/filtered_data.csv")
+
 data$difference = data$f1 - data$f0
 data$quotient = data$f1/data$f0
 dataMod = subset(data, select = -c(b1,b2,b3,b4,f1p,f2p,f3p,f4p, intensity, harmonicity, ...1, time))
@@ -149,29 +239,40 @@ summary(model3)
 model4 = lm(quotient~., data = subset(dataMod, select = -c(difference, f0, f1)))
 summary(model4)
 
-fviz_nbclust(dataMod, kmeans, method = "wss")
-gapStat = clusGap(dataMod, FUN = kmeans, K.max = 10, B = 50)
-fviz_gap_stat(gapStat)
+# fviz_nbclust(dataMod, kmeans, method = "wss")
+# gapStat = clusGap(dataMod, FUN = kmeans, K.max = 10, B = 50)
+# fviz_gap_stat(gapStat)
 
 km1 = kmeans(dataMod, centers = 2)
+km1
+
 km2 = kmeans(dataMod, centers = 6)
+km2
+
 km3 = kmeans(dataMod, centers = 8)
+km3
+
 fviz_cluster(km1, dataMod)
 fviz_cluster(km2, dataMod)
 fviz_cluster(km3, dataMod)
 
 
-fviz_nbclust(subset(dataMod, select = c(f1, f2, gender)), kmeans, method = "wss")
-gapStat2 = clusGap(subset(dataMod, select = c(f1, f2, gender)), FUN = kmeans, K.max = 10, B = 50)
-fviz_gap_stat(gapStat2)
+# fviz_nbclust(subset(dataMod, select = c(f1, f2, gender)), kmeans, method = "wss")
+# gapStat2 = clusGap(subset(dataMod, select = c(f1, f2, gender)), FUN = kmeans, K.max = 10, B = 50)
+# fviz_gap_stat(gapStat2)
 
 km4 = kmeans(dataMod, centers = 2)
+km4
+
 km5 = kmeans(dataMod, centers = 4)
+km5
+
 km6 = kmeans(dataMod, centers = 5)
+km6
+
 fviz_cluster(km4, subset(dataMod, select = c(f1, f2, gender)))
 fviz_cluster(km5, subset(dataMod, select = c(f1, f2, gender)))
 fviz_cluster(km6, subset(dataMod, select = c(f1, f2, gender)))
-
 
 ggplot(dataMod, aes(x = f0, y = f1)) + geom_point(aes(color = gender, alpha = 0.01))
 
@@ -233,7 +334,7 @@ ggplot(data, aes(x=f0_over_f1, y=gender)) +
 
 # ggsave("logistic_gender_f0_over_f1.png")
 
-model_f0_over_f1 <- glm(gender~f0_over_f1, data = data)
+model_f0_over_f1 <- glm(gender~f0_over_f1, data = data, family="binomial")
 summary(model_f0_over_f1)
 
 ## Logistic regression ########################################################
@@ -257,7 +358,7 @@ ggplot(data, aes(x=f1_over_f0, y=gender)) +
 
 # ggsave("logistic_gender_f1_over_f0.png")
 
-model_f1_over_f0 <- glm(gender~f1_over_f0, data = data)
+model_f1_over_f0 <- glm(gender~f1_over_f0, data = data, family="binomial")
 summary(model_f1_over_f0)
 
 ## Logistic regression ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -281,7 +382,7 @@ ggplot(data, aes(x=f1_minus_f0, y=gender)) +
 
 # ggsave("logistic_gender_f1_minus_f0.png")
 
-model_f1_minus_f0 <- glm(gender~f1_minus_f0, data = data)
+model_f1_minus_f0 <- glm(gender~f1_minus_f0, data = data, family="binomial")
 summary(model_f1_minus_f0)
 
 ## Logistic regression ########################################################
@@ -297,7 +398,7 @@ ggplot(data, aes(x=f0 + f1, y=gender)) +
               method.args = list(family=binomial), 
               col="#a349a4") + 
   labs(title = "Logistic regression",
-       subtitle = "gender ~ f1, f0",
+       subtitle = "gender ~ f1 + f0",
        caption = "Data: smol-puhe/data/filtered_data.csv") + 
   xlab("f0, f1")
 
