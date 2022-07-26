@@ -12,19 +12,19 @@ If you don't want to downlaod the full data set above, you can listen to and dow
 
 ### Female speaker sample clips
 
-- [Female speaker 1 sample clip](https://whyp.it/t/female-speaker-1-sample-clip-aMBR5)
-- [Female speaker 2 sample clip](https://whyp.it/t/female-speaker-2-sample-clip-aO9WL)
-- [Female speaker 5 sample clip](https://whyp.it/t/female-speaker-5-sample-clip-dPJ0W)
-- [Female speaker 7 sample clip](https://whyp.it/t/female-speaker-7-sample-clip-aQLYL)
-- [Female speaker 9 sample clip](https://whyp.it/t/female-speaker-9-sample-clip-dRBZK)
+- [Female speaker 1 sample clip](https://whyp.it/tracks/30767/female-speaker-1-sample-clip-aMBR5)
+- [Female speaker 2 sample clip](https://whyp.it/tracks/30769/female-speaker-2-sample-clip-aO9WL)
+- [Female speaker 5 sample clip](https://whyp.it/tracks/30770/female-speaker-5-sample-clip-dPJ0W)
+- [Female speaker 7 sample clip](https://whyp.it/tracks/30771/female-speaker-7-sample-clip-aQLYL)
+- [Female speaker 9 sample clip](https://whyp.it/tracks/30772/female-speaker-9-sample-clip-dRBZK)
 
 ### Male speaker sample clips
 
-- [Male speaker 17 sample clip](https://whyp.it/t/male-speaker-17-sample-clip-eVZ4W)
-- [Male speaker 18 sample clip](https://whyp.it/t/male-speaker-18-sample-clip-bWB5v)
-- [Male speaker 23 sample clip](https://whyp.it/t/male-speaker-23-sample-clip-eXVgA)
-- [Male speaker 26 sample clip](https://whyp.it/t/male-speaker-26-sample-clip-bYXjn)
-- [Male speaker 29 sample clip](https://whyp.it/t/male-speaker-29-sample-clip-eZXkR)
+- [Male speaker 17 sample clip](https://whyp.it/tracks/30773/male-speaker-17-sample-clip-eVZ4W)
+- [Male speaker 18 sample clip](https://whyp.it/tracks/30774/male-speaker-18-sample-clip-bWB5v)
+- [Male speaker 23 sample clip](https://whyp.it/tracks/30775/male-speaker-23-sample-clip-eXVgA)
+- [Male speaker 26 sample clip](https://whyp.it/tracks/30776/male-speaker-26-sample-clip-bYXjn)
+- [Male speaker 29 sample clip](https://whyp.it/tracks/30777/male-speaker-29-sample-clip-eZXkR)
 
 ## 🔗 Other links 🔗
 
